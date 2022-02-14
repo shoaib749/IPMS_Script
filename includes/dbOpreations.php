@@ -45,4 +45,15 @@
             $stmt->execute();
             return $stmt->get_result()->fetch_assoc();
         }
+        //moreInformation function
+        public function moreInfo($fname,$lname,$email_id,$mobNo,$par_mobNo,$dept,$sem,$regNo,$pass10,$per10,$pass12,$per12,$passDip,$perDip,$admission,$sgpa1,$sgpa2,$sgpa3,$sgpa4,$sgpa5,$sgpa6,$sgpa7,$sgpa8,$avgsgpa,$passout,$live,$dead,$option1,$placement_status){
+
+            $stmt = $this->con->prepare("INSERT INTO `info` (`sr`, `fname`, `lname`, `email_id`, `mobNo`, `par_mobNo`, `dept`, `sem`, `regNo`, `pass10`, `per10`, `pass12`, `per12`, `passDip`, `perDip`, `admission`, `sgpa1`, `sgpa2`, `sgpa3`, `sgpa4`, `sgpa5`, `sgpa6`, `sgpa7`, `sgpa8`, `avgSgpa`, `passout`, `live`, `dead`, `option1`, `placement_status`) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
+            $stmt->bind_param("sssssssssssssssssssssssssiiss",$fname,$lname,$email_id,$mobNo,$par_mobNo,$dept,$sem,$regNo,$pass10,$per10,$pass12,$per12,$passDip,$perDip,$admission,$sgpa1,$sgpa2,$sgpa3,$sgpa4,$sgpa5,$sgpa6,$sgpa7,$sgpa8,$avgsgpa,$passout,$live,$dead,$option1,$placement_status);
+            if($stmt->execute()){
+                return 1;
+            }else{
+                return 2;
+            }
+        }   
     }
