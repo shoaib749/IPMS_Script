@@ -14,7 +14,7 @@ $response = array();
                             $_POST['fname'],
                             $_POST['lname'],
                             $_POST['email_id'],
-                            $_POST['pass'],
+                            $_POST['pass']
                         );
                         if($result == 1){
                             $response['error'] = false;
