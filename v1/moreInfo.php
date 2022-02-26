@@ -68,7 +68,14 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
             }elseif($result == 2){
                 $response['error']=true;
                 $response['message']= "Some error Occurred please try again";
+            }elseif($result == 0){
+                $response['error'] = false;
+                $response['message'] = "Info Updated" ; 
+            }elseif($result == 3){
+                $response['error']=true;
+                $response['message']= "Some error Occurred please try again";
             }
+            
         }else{
             $response['error']  = true;
             $response['message'] = "Required field are missing";

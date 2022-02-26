@@ -61,7 +61,16 @@
         }
         //moreInformation function
         public function moreInfo($fname,$lname,$email_id,$mobNo,$par_mobNo,$dept,$sem,$regNo,$pass10,$per10,$pass12,$per12,$passDip,$perDip,$admission,$sgpa1,$sgpa2,$sgpa3,$sgpa4,$sgpa5,$sgpa6,$sgpa7,$sgpa8,$avgsgpa,$passout,$live,$dead,$option1,$placement_status){
-
+            if($this->isUserHaveInfo($fname,$email_id)){
+                $stmt = $this->con->prepare("UPDATE info SET mobNo = ? ,par_mobNo = ?, dept = ?,sem =?, regNo = ? , pass10 = ?, per10 = ?, pass12=?, per12=?, passDip=?, perDip=?, admission=?, sgpa1=?, sgpa2=?, sgpa3=?, sgpa4=?, sgpa5=?, sgpa6=?, sgpa7=?, sgpa8=?, avgSgpa=?, passout=?, live=?, dead=?, option1=?, placement_status=? WHERE fname = ? AND email_id = ?");
+                $stmt->bind_param('ssssssssssssssssssssssiissss',$mobNo,$par_mobNo,$dept,$sem,$regNo,$pass10,$per10,$pass12,$per12,$passDip,$perDip,$admission,$sgpa1,$sgpa2,$sgpa3,$sgpa4,$sgpa5,$sgpa6,$sgpa7,$sgpa8,$avgsgpa,$passout,$live,$dead,$option1,$placement_status,$fname,$email_id);
+                if($stmt->execute()){
+                    return 0;
+                }else{
+                    return 3;
+                }
+                
+            }
             $stmt = $this->con->prepare("INSERT INTO `info` (`sr`, `fname`, `lname`, `email_id`, `mobNo`, `par_mobNo`, `dept`, `sem`, `regNo`, `pass10`, `per10`, `pass12`, `per12`, `passDip`, `perDip`, `admission`, `sgpa1`, `sgpa2`, `sgpa3`, `sgpa4`, `sgpa5`, `sgpa6`, `sgpa7`, `sgpa8`, `avgSgpa`, `passout`, `live`, `dead`, `option1`, `placement_status`) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
             $stmt->bind_param("sssssssssssssssssssssssssiiss",$fname,$lname,$email_id,$mobNo,$par_mobNo,$dept,$sem,$regNo,$pass10,$per10,$pass12,$per12,$passDip,$perDip,$admission,$sgpa1,$sgpa2,$sgpa3,$sgpa4,$sgpa5,$sgpa6,$sgpa7,$sgpa8,$avgsgpa,$passout,$live,$dead,$option1,$placement_status);
             if($stmt->execute()){
@@ -69,5 +78,13 @@
             }else{
                 return 2;
             }
-        }   
+        }  
+        //checking for user Data 
+        public function  isUserHaveInfo($fname,$email_id){
+            $stmt = $this->con->prepare("SELECT email_id FROM info WHERE fname = ? AND email_id = ?;");
+            $stmt->bind_param("ss",$fname,$email_id);
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows > 0;
+        }
     }
