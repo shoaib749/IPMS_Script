@@ -87,4 +87,26 @@
             $stmt->store_result();
             return $stmt->num_rows > 0;
         }
+        //count Total offers
+        public function countTotalOffer(){
+            $stmt = $this->con->prepare("SELECT * FROM placement_data;");
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows;
+
+        }
+        //count Total student placed 
+        // public function countStudentOffer(){
+        //     $stmt  = $this->con->prepare("SELECT COUNT(DISTINCT email_id) FROM placement_data;");
+            
+        //     $rowcount=num_rows($stmt->execute());
+        //     return $rowcount;
+        // }
+        //count Total Intenship Offers
+        public function countInternship(){
+            $stmt = $this->con->prepare("SELECT * FROM internship_data;");
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows;
+        }
     }
