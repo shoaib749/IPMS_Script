@@ -109,4 +109,35 @@
             $stmt->store_result();
             return $stmt->num_rows;
         }
+        //count individual student offer counts
+        public function countIndiOffer($email_id){
+            $stmt = $this->con->prepare("SELECT * FROM placement_data WHERE email_id = ?;");
+            $stmt->bind_param("s",$email_id);
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows;
+        }
+        // creating current drive
+        public function addCurentDrive($c_name,$sal_lpa,$elig_crit,$date_drive,$batch){
+            if($this->checkCurrentDrive($c_name,$date_drive,$batch)){
+                return 0;
+            }else{
+                $stmt = $this->con->prepare("INSERT INTO cr_drives (srNo, c_name, sal_lpa, elig_crit, date_drive, batch) VALUES (NULL,?, ?, ?, ?, ?);");
+                $stmt->bind_param("sssss",$c_name,$sal_lpa,$elig_crit,$date_drive,$batch);
+                if($stmt->execute()){
+                    return 1;
+                }else{
+                    return 2;
+                }
+
+            }
+        }
+        //checking for existing current drive
+        public function checkCurrentDrive($c_name,$date_drive,$batch){
+            $stmt = $this->con->prepare("SELECT c_name FROM cr_drives WHERE c_name = ? AND date_drive = ? AND batch = ?;");
+            $stmt->bind_param("sss",$c_name,$date_drive,$batch);
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows > 0;
+        }
     }
