@@ -109,4 +109,56 @@
             $stmt->store_result();
             return $stmt->num_rows;
         }
+        //count individual student offer counts
+        public function countIndiOffer($email_id){
+            $stmt = $this->con->prepare("SELECT * FROM placement_data WHERE email_id = ?;");
+            $stmt->bind_param("s",$email_id);
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows;
+        }
+        // creating current drive
+        public function addCurentDrive($c_name,$sal_lpa,$elig_crit,$date_drive,$batch){
+            if($this->checkCurrentDrive($c_name,$date_drive,$batch)){
+                return 0;
+            }else{
+                $stmt = $this->con->prepare("INSERT INTO cr_drives (srNo, c_name, sal_lpa, elig_crit, date_drive, batch) VALUES (NULL,?, ?, ?, ?, ?);");
+                $stmt->bind_param("sssss",$c_name,$sal_lpa,$elig_crit,$date_drive,$batch);
+                if($stmt->execute()){
+                    return 1;
+                }else{
+                    return 2;
+                }
+
+            }
+        }
+        //checking for existing current drive
+        public function checkCurrentDrive($c_name,$date_drive,$batch){
+            $stmt = $this->con->prepare("SELECT c_name FROM cr_drives WHERE c_name = ? AND date_drive = ? AND batch = ?;");
+            $stmt->bind_param("sss",$c_name,$date_drive,$batch);
+            $stmt->execute();
+            $stmt->store_result();
+            return $stmt->num_rows > 0;
+        }
+        // function to get current Drive
+        public function getCurrentDrive($c_name){
+            $stmt = $this->con->prepare("SELECT * FROM cr_drives WHERE c_name = ?;");
+            $stmt->bind_param("s",$c_name);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        }
+        // function to get all current drive
+        public function getAllDrive(){
+        $sql = "SELECT c_name FROM cr_drives;";
+        $result = $this->con->query($sql);
+        if ($result->num_rows >0) { 
+            while($row[] = $result->fetch_assoc()) {            
+            $tem = $row;                      
+            }
+        } else {
+            return "No Results Found.";
+        }
+            return $tem;
+        }
+            
     }
