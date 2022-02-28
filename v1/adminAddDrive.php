@@ -30,7 +30,7 @@ $response = array();
 
                         }else{
                             $response['error'] = true;
-                        $response['message'] = "Requid fields are missing";
+                            $response['message'] = "Requid fields are missing";
                         }
     }else{
         $response['error'] = true;

@@ -140,4 +140,25 @@
             $stmt->store_result();
             return $stmt->num_rows > 0;
         }
+        // function to get current Drive
+        public function getCurrentDrive($c_name){
+            $stmt = $this->con->prepare("SELECT * FROM cr_drives WHERE c_name = ?;");
+            $stmt->bind_param("s",$c_name);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        }
+        // function to get all current drive
+        public function getAllDrive(){
+        $sql = "SELECT c_name FROM cr_drives;";
+        $result = $this->con->query($sql);
+        if ($result->num_rows >0) { 
+            while($row[] = $result->fetch_assoc()) {            
+            $tem = $row;                      
+            }
+        } else {
+            return "No Results Found.";
+        }
+            return $tem;
+        }
+            
     }
