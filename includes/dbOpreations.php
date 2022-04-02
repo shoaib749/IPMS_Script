@@ -160,5 +160,28 @@
         }
             return $tem;
         }
+        //function to get internship data with start date and end date 
+        public function getInternshipDate($email_id){
+            // $stmt = $this->con->prepare("SELECT company_name,start_date,end_date FROM internship_data WHERE email_id = ?;");
+            // $stmt->bind_param("s",$email_id);
+            // $rows = array();
+            // $stmt->execute();
+            // // $result = $stmt->store_result();
+            // while($r = mysqli_fetch_assoc($stmt->get_result())){
+            //     $rows[] = $r; 
+            // }
+            // return $rows;
+
+            $sql = "SELECT company_name,start_date,end_date FROM internship_data WHERE email_id = '$email_id';";
+            $result = $this->con->query($sql);
+            if ($result->num_rows >0) { 
+               while($row[] = $result->fetch_assoc()) {            
+                    $tem = $row;                      
+                }
+            } else {
+                return "No Results Found.";
+            }
+            return $tem;
+        }
             
     }
