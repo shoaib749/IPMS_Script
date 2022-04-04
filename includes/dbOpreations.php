@@ -188,7 +188,7 @@
             /*if($this->isUserExist($fname,$lname,$email_id,$batch,$company_name,$start_date,$end_date)){
                 return 0;
             }else{*/
-                $stmt = $this->con->prepare("INSERT INTO internship_data (fname, lname, email_id, batch, company_name, start_date, end_date) VALUES (?,?,?,?,?,?,?);");
+                $stmt = $this->con->prepare("INSERT INTO internship_data (fname,lname,email_id,batch,company_name,start_date,end_date) VALUES (?,?,?,?,?,?,?);");
                 $stmt->bind_param("sssssss",$fname,$lname,$email_id,$batch,$company_name,$start_date,$end_date);
                 if($stmt->execute()){
                     return 1;
@@ -196,7 +196,5 @@
                     return 2;
                 }
             }
-
-        }
             
     }
