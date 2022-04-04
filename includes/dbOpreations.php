@@ -183,5 +183,19 @@
             }
             return $tem;
         }
+
+        //function for internship Drives
+        public function allInternshipDrive(){
+            $sql = "SELECT company_name FROM internship_opportunities;";
+            $result = $this->con->query($sql);
+            if ($result->num_rows >0) { 
+                while($row[] = $result->fetch_assoc()) {            
+                    $tem = $row;                      
+                }
+            } else {
+                return "No Results Found.";
+            }
+            return $tem;
+        }
             
     }

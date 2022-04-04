@@ -3,7 +3,7 @@ require_once '../includes/dbOpreations.php';
 $response = array();
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $db = new dbOpreations();
-    $company = $db->getAllDrive();
+    $company = $db->allInternshipDrive();
     $response['error'] = false;
     $response = $company;
 }else{
