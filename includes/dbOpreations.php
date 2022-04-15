@@ -213,5 +213,18 @@
         
             
         }
+        //function to get student placements with company and sal
+        public function getStrudentPlacementSal($email_id){
+            $sql = "SELECT company_name,sal_lpa FROM placement_data WHERE email_id = '$email_id';";
+            $result = $this->con->query($sql);
+            if ($result->num_rows >0) { 
+               while($row[] = $result->fetch_assoc()) {            
+                    $tem = $row;                      
+                }
+            } else {
+                return "No Results Found.";
+            }
+            return $tem;
+        }
             
     }
