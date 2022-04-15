@@ -197,5 +197,12 @@
             }
             return $tem;
         }
+
+        public function getCurrentIntenship($c_name,$batch){
+            $stmt = $this->con->prepare("SELECT * FROM internship_opportunities WHERE company_name = ? AND batch = ?;");
+            $stmt->bind_param("ss",$c_name,$batch);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();            
+        }
             
     }
