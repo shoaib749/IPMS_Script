@@ -183,5 +183,35 @@
             }
             return $tem;
         }
+
+        //function for internship Drives
+        public function allInternshipDrive(){
+            $sql = "SELECT company_name FROM internship_opportunities;";
+            $result = $this->con->query($sql);
+            if ($result->num_rows >0) { 
+                while($row[] = $result->fetch_assoc()) {            
+                    $tem = $row;                      
+                }
+            } else {
+                return "No Results Found.";
+            }
+            return $tem;
+        }
+        //function to get current intenship drive
+        public function getCurrentIntenship($c_name,$batch){
+            $stmt = $this->con->prepare("SELECT * FROM internship_opportunities WHERE company_name = ? AND batch = ?;");
+            $stmt->bind_param("ss",$c_name,$batch);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();            
+        }
+        //function to get all student info
+        public function getStudentAllInfo($email_id){
+            $stmt = $this->con->prepare("SELECT * FROM info WHERE email_id = ?;");
+            $stmt->bind_param("s",$email_id);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        
+            
+        }
             
     }
