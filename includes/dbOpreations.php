@@ -226,5 +226,15 @@
             }
             return $tem;
         }
+        //function to fetch student profile pic 
+        public function getStudentProfilePic($email_id){
+            $stmt = $this->con->prepare("SELECT profile_img FROM info WHERE email_id = ?;");
+            $stmt->bind_param("s",$email_id);
+            if($stmt->execute()){
+                return $stmt->get_result()->fetch_assoc();
+            }else{
+                return 1;
+            }
+        }
             
     }

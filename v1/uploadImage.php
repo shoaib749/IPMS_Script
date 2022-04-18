@@ -6,7 +6,7 @@
     $email=$_POST['email_id'];
     $img=$_POST['upload'];
     $filename=$email.".jpg";
-    file_put_contents("images/".$filename,base64_decode($img));
+    file_put_contents("../images/".$filename,base64_decode($img));
     //sql
     $sql="UPDATE info SET profile_img = '$filename' WHERE email_id = '$email';";
     $result = mysqli_query($conn,$sql);
