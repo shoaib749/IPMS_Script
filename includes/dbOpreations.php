@@ -183,7 +183,59 @@
             }
             return $tem;
         }
-        //ADD Internship
+        //function for internship Drives
+        public function allInternshipDrive(){
+            $sql = "SELECT company_name FROM internship_opportunities;";
+            $result = $this->con->query($sql);
+            if ($result->num_rows >0) { 
+                while($row[] = $result->fetch_assoc()) {            
+                    $tem = $row;                      
+                }
+            } else {
+                return "No Results Found.";
+            }
+            return $tem;
+        }
+        //function to get current intenship drive
+        public function getCurrentIntenship($c_name,$batch){
+            $stmt = $this->con->prepare("SELECT * FROM internship_opportunities WHERE company_name = ? AND batch = ?;");
+            $stmt->bind_param("ss",$c_name,$batch);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();            
+        }
+        //function to get all student info
+        public function getStudentAllInfo($email_id){
+            $stmt = $this->con->prepare("SELECT * FROM info WHERE email_id = ?;");
+            $stmt->bind_param("s",$email_id);
+            $stmt->execute();
+            return $stmt->get_result()->fetch_assoc();
+        
+            
+        }
+        //function to get student placements with company and sal
+        public function getStrudentPlacementSal($email_id){
+            $sql = "SELECT company_name,sal_lpa FROM placement_data WHERE email_id = '$email_id';";
+            $result = $this->con->query($sql);
+            if ($result->num_rows >0) { 
+               while($row[] = $result->fetch_assoc()) {            
+                    $tem = $row;                      
+                }
+            } else {
+                return "No Results Found.";
+            }
+            return $tem;
+        }
+        //function to fetch student profile pic 
+        public function getStudentProfilePic($email_id){
+            $stmt = $this->con->prepare("SELECT profile_img FROM info WHERE email_id = ?;");
+            $stmt->bind_param("s",$email_id);
+            if($stmt->execute()){
+                return $stmt->get_result()->fetch_assoc();
+            }else{
+                return 1;
+            }
+        }
+            //ADD Internship
          public function addInternship($fname,$lname,$email_id,$batch,$company_name,$start_date,$end_date){
             /*if($this->isUserExist($fname,$lname,$email_id,$batch,$company_name,$start_date,$end_date)){
                 return 0;
@@ -196,5 +248,4 @@
                     return 2;
                 }
             }
-            
     }
